@@ -80,6 +80,7 @@ function validate_required_input_with_options {
 #
 # Validate parameters
 echo_info "Configs:"
+echo_details "* binary_path: $binary_path"
 echo_details "* platform: $platform"
 echo_details "* entry_file: $entry_file"
 echo_details "* bundle_output: $out"
@@ -92,7 +93,13 @@ echo_details "* root: $root"
 echo_details "* url: $url"
 
 echo_info "react-native version:"
-react-native --version
+
+REACT_NATIVE_BIN="react-native"
+if [ ! -z "${binary_path}" ] ; then
+    REACT_NATIVE_BIN="${binary_path}/react-native"
+fi
+
+$REACT_NATIVE_BIN --version
 
 echo
 
@@ -144,7 +151,7 @@ fi
 
 set -x
 
-react-native bundle $ENTRY_FILE_OPTION \
+$REACT_NATIVE_BIN bundle $ENTRY_FILE_OPTION \
     $PLATFORM_OPTION \
     $BUNDLE_OUTPUT_OPTION \
 		$DEV_OPTION \

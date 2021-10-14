@@ -16,6 +16,14 @@ deps:
   brew:
   - name: node
 inputs:
+  - binary_path:
+    opts:
+      title: Binary path
+      summary: Custom path to react-native binary, like `{binary_path}/react-native`
+      description: |-
+        Path to the binary react-native, either absolute or relative.
+        Useful when configuring distinct package managers, installing globally,
+        or in a relative path like `./node_modules/.bin`
   - platform: "ios"
     opts:
       title: Bundle platform
