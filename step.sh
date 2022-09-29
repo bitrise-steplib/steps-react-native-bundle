@@ -99,7 +99,9 @@ if [ ! -z "${binary_path}" ] ; then
     REACT_NATIVE_BIN="${binary_path}/react-native"
 fi
 
-$REACT_NATIVE_BIN --version
+if ! $REACT_NATIVE_BIN --version 2>/dev/null ; then
+    $REACT_NATIVE_BIN -v
+fi
 
 echo
 
