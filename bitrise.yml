@@ -45,9 +45,9 @@ workflows:
             set -v
 
             git clone $SAMPLE_APP_URL .
-    - install-react-native@0.1.0:
+    - install-react-native:
         run_if: .IsCI
-    - npm@0.1.1:
+    - npm:
         inputs:
         - command: install
     - path::./:
