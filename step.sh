@@ -94,9 +94,17 @@ echo_details "* url: $url"
 
 echo_info "react-native version:"
 
-REACT_NATIVE_BIN="react-native"
-if [ ! -z "${binary_path}" ] ; then
-    REACT_NATIVE_BIN="${binary_path}/react-native"
+# Find path to the react-native CLI
+declare REACT_NATIVE_BIN
+if [[ -n "$binary_path" ]]; then
+	# If binary_path is specified, use that
+	REACT_NATIVE_BIN="$binary_path/react-native"
+elif output=$(npx which react-native); then
+	# If npx version is available, use that
+	REACT_NATIVE_BIN=$(dirname $output)
+else
+	# Otherwise, use the react-native CLI in the current PATH
+	REACT_NATIVE_BIN="react-native"
 fi
 
 if ! $REACT_NATIVE_BIN --version 2>/dev/null ; then
