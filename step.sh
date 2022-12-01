@@ -101,7 +101,7 @@ if [[ -n "$binary_path" ]]; then
 	REACT_NATIVE_BIN="$binary_path/react-native"
 elif output=$(npx which react-native); then
 	# If npx version is available, use that
-	REACT_NATIVE_BIN=$(dirname $output)
+	REACT_NATIVE_BIN=$output
 else
 	# Otherwise, use the react-native CLI in the current PATH
 	REACT_NATIVE_BIN="react-native"
