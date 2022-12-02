@@ -101,9 +101,9 @@ if [[ -n "${binary_path}" ]]; then
 	REACT_NATIVE_BIN="${binary_path}/react-native"
 	echo_details "* Using binary specified in binary_path"
 	echo_details "* Location: ${REACT_NATIVE_BIN}"
-elif output=$(npx which react-native 2>/dev/null); then
+elif output=$(npx --yes which react-native 2>/dev/null); then
 	# If npx version is available, use that
-	REACT_NATIVE_BIN=$output
+	REACT_NATIVE_BIN=${output}
 	echo_details "* Using binary via \`npx\`"
 	echo_details "* Location: ${REACT_NATIVE_BIN}"
 else
