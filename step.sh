@@ -100,18 +100,16 @@ if [[ -n "${binary_path}" ]]; then
 	# If binary_path is specified, use that
 	REACT_NATIVE_BIN="${binary_path}/react-native"
 	echo_details "* Using binary specified in binary_path"
-	echo_details "* Location: ${REACT_NATIVE_BIN}"
 elif output=$(npx --yes which react-native 2>/dev/null); then
 	# If npx version is available, use that
 	REACT_NATIVE_BIN=${output}
 	echo_details "* Using binary via \`npx\`"
-	echo_details "* Location: ${REACT_NATIVE_BIN}"
 else
 	# Otherwise, use the react-native CLI in the current PATH
 	REACT_NATIVE_BIN="react-native"
 	echo_details "* Using react-native CLI in PATH"
-	echo_details "* Location: ${REACT_NATIVE_BIN}"
 fi
+echo_details "* Location: ${REACT_NATIVE_BIN}"
 
 if output=$("${REACT_NATIVE_BIN}" --version 2>/dev/null); then
 	echo_details "* Version: ${output}"
