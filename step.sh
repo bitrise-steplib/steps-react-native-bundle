@@ -92,15 +92,31 @@ echo_info "Deprecated Configs:"
 echo_details "* root: $root"
 echo_details "* url: $url"
 
-echo_info "react-native version:"
+echo_info "\`react-native\` info:"
 
-REACT_NATIVE_BIN="react-native"
-if [ ! -z "${binary_path}" ] ; then
-    REACT_NATIVE_BIN="${binary_path}/react-native"
+# Find path to the react-native CLI
+declare REACT_NATIVE_BIN
+if [[ -n "${binary_path}" ]]; then
+	# If binary_path is specified, use that
+	REACT_NATIVE_BIN="${binary_path}/react-native"
+	echo_details "* Using binary specified in binary_path"
+elif output=$(npx --yes which react-native 2>/dev/null); then
+	# If npx version is available, use that
+	REACT_NATIVE_BIN=${output}
+	echo_details "* Using binary via \`npx\`"
+else
+	# Otherwise, use the react-native CLI in the current PATH
+	REACT_NATIVE_BIN="react-native"
+	echo_details "* Using react-native CLI in PATH"
 fi
+echo_details "* Location: ${REACT_NATIVE_BIN}"
 
-if ! $REACT_NATIVE_BIN --version 2>/dev/null ; then
-    $REACT_NATIVE_BIN -v
+if output=$("${REACT_NATIVE_BIN}" --version 2>/dev/null); then
+	echo_details "* Version: ${output}"
+elif output=$("${REACT_NATIVE_BIN}" -v 2>/dev/null); then
+	echo_details "* Version: ${output}"
+else
+	echo_warn "* Failed to get \`react-native\` version"
 fi
 
 echo
